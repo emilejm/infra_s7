@@ -7,7 +7,7 @@ class Db
     private function __construct()
     {
         try {
-            $this->_db = new PDO("pgsql:" . sprintf(
+            $pdo->$this->_db = new PDO("pgsql:" . sprintf(
 				    "host=%s;port=%s;user=%s;password=%s;dbname=%s",
 				    $db["ec2-54-247-107-109.eu-west-1.compute.amazonaws.com
 "],
