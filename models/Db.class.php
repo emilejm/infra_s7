@@ -2,7 +2,7 @@
 class Db
 {
     private static $instance = null;
-    private $_db;
+    private $db;
 
     private function __construct()
     {
