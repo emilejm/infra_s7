@@ -7,17 +7,16 @@ class Db
     private function __construct()
     {
         try {
-            $pdo->$this->_db = new PDO("pgsql:" . sprintf(
-				    "host=%s;port=%s;user=%s;password=%s;dbname=%s",
-				    $db["ec2-46-137-124-19.eu-west-1.compute.amazonaws.com
-"],
-				    $db["5432"],
-				    $db["pvtdnizhvvgeyj"],
-				    $db["3e0abdd7a520d210d2ada05279a0e05c6b59340d850a6d5012942cbf85ae82c5"],
-				    ltrim($db["postgres://pvtdnizhvvgeyj:3e0abdd7a520d210d2ada05279a0e05c6b59340d850a6d5012942cbf85ae82c5@ec2-46-137-124-19.eu-west-1.compute.amazonaws.com:5432/de1thdts5n69gu
-"], "/"));
-            $this->_db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-			$this->_db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE,PDO::FETCH_OBJ);
+		$db = parse_url(getenv("DATABASE_URL"));
+
+		$pdo = new PDO("pgsql:" . sprintf(
+		    "host=%s;port=%s;user=%s;password=%s;dbname=%s",
+		    $db["host"],
+		    $db["port"],
+		    $db["user"],
+		    $db["pass"],
+		    ltrim($db["path"], "/")
+		));
         } 
 		catch (PDOException $e) {
 		    die('Erreur de connexion à la base de données : '.$e->getMessage());
